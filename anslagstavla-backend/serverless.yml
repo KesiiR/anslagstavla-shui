@@ -1,0 +1,74 @@
+
+service: anslagstavla-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  stage: dev
+  environment:
+    MESSAGES_TABLE: Messages
+  iam:
+    role: arn:aws:iam::946156973806:role/Swing-notes-role
+  httpApi:
+    cors: true
+
+functions:
+  getMessages:
+    handler: functions/getMessages/getMessages.handler
+    description: "Fetch all messages"
+    events:
+      - httpApi:
+          path: /messages
+          method: get
+
+  getMessagesByUser:
+    handler: functions/getMessagesByUser/getMessagesByUser.handler
+    description: "Fetch messages by username"
+    events:
+      - httpApi:
+          path: /messages/{username}
+          method: get
+
+  createMessages:
+    handler: functions/createMessages/createMessages.handler
+    description: "Create a new message"
+    events:
+      - httpApi:
+          path: /messages
+          method: post
+
+  updateMessages:
+    handler: functions/updateMessages/updateMessages.handler
+    description: "Update an existing message"
+    events:
+      - httpApi:
+          path: /messages/{id}
+          method: put
+
+resources:
+  Resources:
+    MessagesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Messages
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: username
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: username-createdAt-index
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST

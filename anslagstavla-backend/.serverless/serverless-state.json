@@ -1,0 +1,805 @@
+{
+  "service": {
+    "service": "anslagstavla-api",
+    "serviceObject": {
+      "name": "anslagstavla-api"
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "nodejs20.x",
+      "region": "eu-north-1",
+      "stage": "dev",
+      "environment": {
+        "MESSAGES_TABLE": "Messages"
+      },
+      "iam": {
+        "role": "arn:aws:iam::946156973806:role/Swing-notes-role"
+      },
+      "httpApi": {
+        "cors": true
+      },
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "GetMessagesLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/anslagstavla-api-dev-getMessages"
+            }
+          },
+          "GetMessagesByUserLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/anslagstavla-api-dev-getMessagesByUser"
+            }
+          },
+          "CreateMessagesLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/anslagstavla-api-dev-createMessages"
+            }
+          },
+          "UpdateMessagesLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/anslagstavla-api-dev-updateMessages"
+            }
+          },
+          "GetMessagesLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-eu-north-1-2582b265-c7f7",
+                "S3Key": "serverless/anslagstavla-api/dev/1759319398490-2025-10-01T11:49:58.490Z/anslagstavla-api.zip"
+              },
+              "Handler": "functions/getMessages/getMessages.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "anslagstavla-api-dev-getMessages",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Description": "Fetch all messages",
+              "Environment": {
+                "Variables": {
+                  "MESSAGES_TABLE": "Messages"
+                }
+              },
+              "Role": "arn:aws:iam::946156973806:role/Swing-notes-role"
+            },
+            "DependsOn": [
+              "GetMessagesLogGroup"
+            ]
+          },
+          "GetMessagesByUserLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-eu-north-1-2582b265-c7f7",
+                "S3Key": "serverless/anslagstavla-api/dev/1759319398490-2025-10-01T11:49:58.490Z/anslagstavla-api.zip"
+              },
+              "Handler": "functions/getMessagesByUser/getMessagesByUser.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "anslagstavla-api-dev-getMessagesByUser",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Description": "Fetch messages by username",
+              "Environment": {
+                "Variables": {
+                  "MESSAGES_TABLE": "Messages"
+                }
+              },
+              "Role": "arn:aws:iam::946156973806:role/Swing-notes-role"
+            },
+            "DependsOn": [
+              "GetMessagesByUserLogGroup"
+            ]
+          },
+          "CreateMessagesLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-eu-north-1-2582b265-c7f7",
+                "S3Key": "serverless/anslagstavla-api/dev/1759319398490-2025-10-01T11:49:58.490Z/anslagstavla-api.zip"
+              },
+              "Handler": "functions/createMessages/createMessages.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "anslagstavla-api-dev-createMessages",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Description": "Create a new message",
+              "Environment": {
+                "Variables": {
+                  "MESSAGES_TABLE": "Messages"
+                }
+              },
+              "Role": "arn:aws:iam::946156973806:role/Swing-notes-role"
+            },
+            "DependsOn": [
+              "CreateMessagesLogGroup"
+            ]
+          },
+          "UpdateMessagesLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-eu-north-1-2582b265-c7f7",
+                "S3Key": "serverless/anslagstavla-api/dev/1759319398490-2025-10-01T11:49:58.490Z/anslagstavla-api.zip"
+              },
+              "Handler": "functions/updateMessages/updateMessages.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "anslagstavla-api-dev-updateMessages",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Description": "Update an existing message",
+              "Environment": {
+                "Variables": {
+                  "MESSAGES_TABLE": "Messages"
+                }
+              },
+              "Role": "arn:aws:iam::946156973806:role/Swing-notes-role"
+            },
+            "DependsOn": [
+              "UpdateMessagesLogGroup"
+            ]
+          },
+          "GetMessagesLambdaVersion4UUPY1gvSxe7MPdEi1cahQoBDFZNOigtm4AZ1I1Lg": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetMessagesLambdaFunction"
+              },
+              "CodeSha256": "iv1dJJFXiWAPJ2ebXg6By8zQBk10LcJ3Pm8tUFmWlrk=",
+              "Description": "Fetch all messages"
+            }
+          },
+          "GetMessagesByUserLambdaVersion0MfBQOG2tfZVtlWklfJVVxAjzTg0l4gSo7bzqBycM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetMessagesByUserLambdaFunction"
+              },
+              "CodeSha256": "iv1dJJFXiWAPJ2ebXg6By8zQBk10LcJ3Pm8tUFmWlrk=",
+              "Description": "Fetch messages by username"
+            }
+          },
+          "CreateMessagesLambdaVersionQi2r65HCeZqg6759nWw6Avv5VEXyHn0iZbk6jj0NlU": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "CreateMessagesLambdaFunction"
+              },
+              "CodeSha256": "iv1dJJFXiWAPJ2ebXg6By8zQBk10LcJ3Pm8tUFmWlrk=",
+              "Description": "Create a new message"
+            }
+          },
+          "UpdateMessagesLambdaVersionhNn7NZObIbFcogZoS2OVCVtLrt9qqalBO3mXnrQ": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateMessagesLambdaFunction"
+              },
+              "CodeSha256": "iv1dJJFXiWAPJ2ebXg6By8zQBk10LcJ3Pm8tUFmWlrk=",
+              "Description": "Update an existing message"
+            }
+          },
+          "HttpApi": {
+            "Type": "AWS::ApiGatewayV2::Api",
+            "Properties": {
+              "Name": "dev-anslagstavla-api",
+              "ProtocolType": "HTTP",
+              "CorsConfiguration": {
+                "AllowHeaders": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "AllowMethods": [
+                  "OPTIONS",
+                  "GET",
+                  "POST",
+                  "PUT"
+                ],
+                "AllowOrigins": [
+                  "*"
+                ]
+              }
+            }
+          },
+          "HttpApiStage": {
+            "Type": "AWS::ApiGatewayV2::Stage",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "StageName": "$default",
+              "AutoDeploy": true,
+              "DefaultRouteSettings": {
+                "DetailedMetricsEnabled": false
+              }
+            }
+          },
+          "GetMessagesLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "GetMessagesLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationGetMessages": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"GetMessagesLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteGetMessages": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /messages",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationGetMessages"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationGetMessages"
+          },
+          "GetMessagesByUserLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "GetMessagesByUserLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationGetMessagesByUser": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"GetMessagesByUserLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteGetMessagesUsernameVar": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /messages/{username}",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationGetMessagesByUser"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationGetMessagesByUser"
+          },
+          "CreateMessagesLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "CreateMessagesLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationCreateMessages": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"CreateMessagesLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRoutePostMessages": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "POST /messages",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationCreateMessages"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationCreateMessages"
+          },
+          "UpdateMessagesLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "UpdateMessagesLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationUpdateMessages": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"UpdateMessagesLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRoutePutMessagesIdVar": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "PUT /messages/{id}",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationUpdateMessages"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationUpdateMessages"
+          },
+          "MessagesTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "Messages",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "username",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "createdAt",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "GlobalSecondaryIndexes": [
+                {
+                  "IndexName": "username-createdAt-index",
+                  "KeySchema": [
+                    {
+                      "AttributeName": "username",
+                      "KeyType": "HASH"
+                    },
+                    {
+                      "AttributeName": "createdAt",
+                      "KeyType": "RANGE"
+                    }
+                  ],
+                  "Projection": {
+                    "ProjectionType": "ALL"
+                  }
+                }
+              ],
+              "BillingMode": "PAY_PER_REQUEST"
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "serverless-framework-deployments-eu-north-1-2582b265-c7f7",
+            "Export": {
+              "Name": "sls-anslagstavla-api-dev-ServerlessDeploymentBucketName"
+            }
+          },
+          "GetMessagesLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "GetMessagesLambdaVersion4UUPY1gvSxe7MPdEi1cahQoBDFZNOigtm4AZ1I1Lg"
+            },
+            "Export": {
+              "Name": "sls-anslagstavla-api-dev-GetMessagesLambdaFunctionQualifiedArn"
+            }
+          },
+          "GetMessagesByUserLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "GetMessagesByUserLambdaVersion0MfBQOG2tfZVtlWklfJVVxAjzTg0l4gSo7bzqBycM"
+            },
+            "Export": {
+              "Name": "sls-anslagstavla-api-dev-GetMessagesByUserLambdaFunctionQualifiedArn"
+            }
+          },
+          "CreateMessagesLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "CreateMessagesLambdaVersionQi2r65HCeZqg6759nWw6Avv5VEXyHn0iZbk6jj0NlU"
+            },
+            "Export": {
+              "Name": "sls-anslagstavla-api-dev-CreateMessagesLambdaFunctionQualifiedArn"
+            }
+          },
+          "UpdateMessagesLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "UpdateMessagesLambdaVersionhNn7NZObIbFcogZoS2OVCVtLrt9qqalBO3mXnrQ"
+            },
+            "Export": {
+              "Name": "sls-anslagstavla-api-dev-UpdateMessagesLambdaFunctionQualifiedArn"
+            }
+          },
+          "HttpApiId": {
+            "Description": "Id of the HTTP API",
+            "Value": {
+              "Ref": "HttpApi"
+            },
+            "Export": {
+              "Name": "sls-anslagstavla-api-dev-HttpApiId"
+            }
+          },
+          "HttpApiUrl": {
+            "Description": "URL of the HTTP API",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "HttpApi"
+                  },
+                  ".execute-api.",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  }
+                ]
+              ]
+            },
+            "Export": {
+              "Name": "sls-anslagstavla-api-dev-HttpApiUrl"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "pluginsData": {},
+    "functions": {
+      "getMessages": {
+        "handler": "functions/getMessages/getMessages.handler",
+        "description": "Fetch all messages",
+        "events": [
+          {
+            "httpApi": {
+              "path": "/messages",
+              "method": "get"
+            },
+            "resolvedMethod": "GET",
+            "resolvedPath": "/messages"
+          }
+        ],
+        "name": "anslagstavla-api-dev-getMessages",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs20.x",
+        "vpc": {},
+        "versionLogicalId": "GetMessagesLambdaVersion4UUPY1gvSxe7MPdEi1cahQoBDFZNOigtm4AZ1I1Lg"
+      },
+      "getMessagesByUser": {
+        "handler": "functions/getMessagesByUser/getMessagesByUser.handler",
+        "description": "Fetch messages by username",
+        "events": [
+          {
+            "httpApi": {
+              "path": "/messages/{username}",
+              "method": "get"
+            },
+            "resolvedMethod": "GET",
+            "resolvedPath": "/messages/{username}"
+          }
+        ],
+        "name": "anslagstavla-api-dev-getMessagesByUser",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs20.x",
+        "vpc": {},
+        "versionLogicalId": "GetMessagesByUserLambdaVersion0MfBQOG2tfZVtlWklfJVVxAjzTg0l4gSo7bzqBycM"
+      },
+      "createMessages": {
+        "handler": "functions/createMessages/createMessages.handler",
+        "description": "Create a new message",
+        "events": [
+          {
+            "httpApi": {
+              "path": "/messages",
+              "method": "post"
+            },
+            "resolvedMethod": "POST",
+            "resolvedPath": "/messages"
+          }
+        ],
+        "name": "anslagstavla-api-dev-createMessages",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs20.x",
+        "vpc": {},
+        "versionLogicalId": "CreateMessagesLambdaVersionQi2r65HCeZqg6759nWw6Avv5VEXyHn0iZbk6jj0NlU"
+      },
+      "updateMessages": {
+        "handler": "functions/updateMessages/updateMessages.handler",
+        "description": "Update an existing message",
+        "events": [
+          {
+            "httpApi": {
+              "path": "/messages/{id}",
+              "method": "put"
+            },
+            "resolvedMethod": "PUT",
+            "resolvedPath": "/messages/{id}"
+          }
+        ],
+        "name": "anslagstavla-api-dev-updateMessages",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs20.x",
+        "vpc": {},
+        "versionLogicalId": "UpdateMessagesLambdaVersionhNn7NZObIbFcogZoS2OVCVtLrt9qqalBO3mXnrQ"
+      }
+    },
+    "resources": {
+      "Resources": {
+        "MessagesTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+            "TableName": "Messages",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              },
+              {
+                "AttributeName": "username",
+                "AttributeType": "S"
+              },
+              {
+                "AttributeName": "createdAt",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "GlobalSecondaryIndexes": [
+              {
+                "IndexName": "username-createdAt-index",
+                "KeySchema": [
+                  {
+                    "AttributeName": "username",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "createdAt",
+                    "KeyType": "RANGE"
+                  }
+                ],
+                "Projection": {
+                  "ProjectionType": "ALL"
+                }
+              }
+            ],
+            "BillingMode": "PAY_PER_REQUEST"
+          }
+        }
+      },
+      "Outputs": {}
+    },
+    "configValidationMode": "warn",
+    "serviceFilename": "serverless",
+    "initialServerlessConfig": {
+      "service": "anslagstavla-api",
+      "provider": {
+        "$ref": "$[\"service\"][\"provider\"]"
+      },
+      "functions": {
+        "$ref": "$[\"service\"][\"functions\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
+      }
+    },
+    "appId": null,
+    "orgId": null,
+    "layers": {},
+    "artifact": "C:\\Users\\rebin\\anslagstavla\\anslagstavla-backend\\.serverless\\anslagstavla-api.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/anslagstavla-api/dev/1759319398490-2025-10-01T11:49:58.490Z",
+    "artifact": "anslagstavla-api.zip"
+  }
+}
