@@ -1,11 +1,38 @@
-# Anslagstavla Backend
-This is the backend for the Anslagstavla application, built using the Serverless Framework and AWS Lambda.
+# Anslagstavla
+
+A simple bulletin board app for creating and viewing messages.
+
+## Tech Stack
+
+**Frontend:** React + Vite + Tailwind CSS  
+**Backend:** AWS Lambda + DynamoDB (Serverless Framework)
 
 ## Features
-- Create, read, update, and delete messages using AWS Lambda functions.
-- RESTful API endpoints managed by API Gateway.
-- Data storage using DynamoDB.
-- CORS enabled for cross-origin requests.
-- Environment variables managed through Serverless Framework.
 
+- View all messages
+- View messages by user
+- Create new messages
+- Update existing messages
+
+## Setup
+
+### Frontend
+```bash
+cd anslagstavla-frontend
+npm install
+npm run dev
+```
+
+### Backend
+```bash
+cd anslagstavla-backend
+serverless deploy
+```
+
+## API Endpoints
+
+- `GET /messages` - Get all messages
+- `GET /messages/{username}` - Get messages by user
+- `POST /messages` - Create message
+- `PUT /messages/{id}` - Update message
 

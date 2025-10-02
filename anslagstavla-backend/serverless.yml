@@ -9,7 +9,7 @@ provider:
   environment:
     MESSAGES_TABLE: Messages
   iam:
-    role: arn:aws:iam::946156973806:role/Swing-notes-role
+    role: ${env:IAM_ROLE}
   httpApi:
     cors: true
 
